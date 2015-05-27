@@ -1,0 +1,19 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Here we define a few rewrite rules
+# first two lines ensure that our rewriteRule won't trigger if the file or directory actually exists
+
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+
+# if the location doesn't exist, the rewrite rule kicks in
+# basically, this url:
+#
+# /modulename/actionname
+#
+# will be rewriten into:
+#
+# /index.php?module=modulename&action=actionname
+ 
+RewriteRule ([^/]+)/*([^/]*)/*(.*)?$ index.php?module=$1&action=$2 [L,QSA]
